@@ -1,4 +1,4 @@
-module pb_crawler
+module github.com/DannyHinshaw/go-crawler/pb_crawler
 
 go 1.13
 
