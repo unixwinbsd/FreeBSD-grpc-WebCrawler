@@ -2,16 +2,22 @@ package main
 
 import (
 	"context"
+	"errors"
+	"flag"
 	"fmt"
-	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
-	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
 	"log"
+	"os"
+	"time"
+
+	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
+	"github.com/urfave/cli/v2"
+	"google.golang.org/grpc"
 )
 
 const address = "localhost:50051"
 
 func main() {
+	var url string
 
 	// Set up a connection to the server.
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), grpc.WithBlock())
@@ -22,57 +28,86 @@ func main() {
 
 	// Init gRPC client
 	client := pb.NewCrawlerClient(conn)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
 
-	// Define CLI
-	var url string
-	var cmdPrint = &cobra.Command{
-		Use:   "crawl -start [url to crawl]",
-		Short: "Crawl a website by url",
-		Long: `crawl will start a crawler at the given url and find all links belonging to that domain.`,
-		Args: cobra.ExactArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			url := args[0]
-			fmt.Println("crawling", url)
+	// Create CLI
+	app := &cli.App{
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "start",
+				Usage:       "start crawling url",
+				Destination: &url,
+			},
+			&cli.StringFlag{
+				Name:        "stop",
+				Usage:       "stop crawling url",
+				Destination: &url,
+			},
+			&cli.BoolFlag{
+				Name:  "list",
+				Usage: "list site tree",
+				Value: true,
+			},
+		},
+		Action: func(c *cli.Context) error {
 
-			r, err := client.CrawlerStart(context.Background(), &pb.StartRequest{Url: url})
-			if err != nil {
-				log.Fatalf("could not start crawler: %v", err)
+			// Parse command flags
+			set := &flag.FlagSet{}
+			nc := cli.NewContext(c.App, set, c)
+			flags := nc.FlagNames()
+			nFlags := len(flags)
+			singleFlag := nFlags == 1
+
+			targetFlag := ""
+			if singleFlag {
+				targetFlag = flags[0]
 			}
-			log.Printf("response: %v", r)
-		},
-	}
 
-	var cmdEcho = &cobra.Command{
-		Use:   "crawl -stop [url to stop crawling]",
-		Short: "Stop crawling a website by url",
-		Long: `crawl -stop will stop a currently running crawler for a given url.`,
-		Args: cobra.ExactArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			url := args[0]
-			fmt.Println("crawling", url)
+			// List Tree Command
+			if singleFlag && targetFlag == "list" {
+				r, err := client.ListTree(ctx, &pb.ListRequest{})
+				if err != nil {
+					log.Fatalf("could not get tree: %v", err)
+				}
 
-			r, err := client.CrawlerStop(context.Background(), &pb.StopRequest{Url: url})
-			if err != nil {
-				log.Fatalf("could not start crawler: %v", err)
+				log.Printf("response: %v", r)
+				return nil
 			}
-			log.Printf("response: %v", r)
+
+			// Start & Stop require url
+			if url == "" {
+				return errors.New("you must specify a url to crawl")
+			}
+
+			// Stop command
+			if singleFlag && targetFlag == "stop" {
+				r, err := client.CrawlerStop(ctx, &pb.StopRequest{})
+				if err != nil {
+					log.Fatalf("could not stop crawler: %v", err)
+				}
+
+				log.Printf("response: %v", r)
+				return nil
+			}
+
+			// Start command
+			if singleFlag && targetFlag == "start" {
+				fmt.Println("crawling", url)
+				r, err := client.CrawlerStart(ctx, &pb.StartRequest{Url: url})
+				if err != nil {
+					log.Fatalf("could not start crawler: %v", err)
+				}
+				log.Printf("response: %v", r)
+
+				return nil
+			}
+
+			return errors.New("you may only pass one flag to crawl")
 		},
 	}
 
-	var cmdTimes = &cobra.Command{
-		Use:   "times [string to echo]",
-		Short: "Echo anything to the screen more times",
-		Long: `echo things multiple times back to the user by providing
-a count and a string.`,
-		Args: cobra.MinimumNArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-		},
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err)
 	}
-
-	//cmdTimes.Flags().StringVar(&url, "url", "t", 1, "the url to crawl")
-
-	var rootCmd = &cobra.Command{Use: "app"}
-	rootCmd.AddCommand(cmdPrint, cmdEcho)
-	cmdEcho.AddCommand(cmdTimes)
-	rootCmd.Execute()
 }

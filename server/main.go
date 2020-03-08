@@ -23,7 +23,7 @@ var crawler = &c.Crawler{
 // CrawlerStart - implements pb_crawler.StartCrawler
 func (s *server) CrawlerStart(ctx context.Context, in *pb.StartRequest) (*pb.ControlResponse, error) {
 	url := in.GetUrl()
-	log.Printf("Received: %v", url)
+	log.Printf("Starting crawler: %v", url)
 
 	// Start the crawler
 	go crawler.Crawl(url)
@@ -32,12 +32,14 @@ func (s *server) CrawlerStart(ctx context.Context, in *pb.StartRequest) (*pb.Con
 
 // CrawlerStop - implements pb_crawler.CrawlerStop
 func (s *server) CrawlerStop(ctx context.Context, in *pb.StopRequest) (*pb.ControlResponse, error) {
+	log.Println("Stopping crawler...")
 	crawler.Run = false
 	return &pb.ControlResponse{Started: false}, nil
 }
 
 // CrawlerList - implements pb_crawler.CrawlerList
-func (s *server) CrawlerList(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
+func (s *server) ListTree(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
+	log.Println("Getting site tree...")
 	urls := crawler.Urls
 	keys := make([]string, len(urls))
 
