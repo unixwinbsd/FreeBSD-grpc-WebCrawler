@@ -5,7 +5,7 @@ import (
 	"log"
 	"net"
 
-	pb "github.com/DannyHinshaw/go-crawler/pb_crawler"
+	pb "pb_crawler"
 	"google.golang.org/grpc"
 )
 
