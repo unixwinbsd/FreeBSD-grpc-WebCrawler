@@ -35,6 +35,7 @@ func main() {
 		Run: func(cmd *cobra.Command, args []string) {
 			url := args[0]
 			fmt.Println("crawling", url)
+
 			r, err := client.CrawlerStart(context.Background(), &pb.StartRequest{Url: url})
 			if err != nil {
 				log.Fatalf("could not start crawler: %v", err)
@@ -49,7 +50,14 @@ func main() {
 		Long: `crawl -stop will stop a currently running crawler for a given url.`,
 		Args: cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Echo: " + strings.Join(args, " "))
+			url := args[0]
+			fmt.Println("crawling", url)
+
+			r, err := client.CrawlerStop(context.Background(), &pb.StopRequest{Url: url})
+			if err != nil {
+				log.Fatalf("could not start crawler: %v", err)
+			}
+			log.Printf("response: %v", r)
 		},
 	}
 
