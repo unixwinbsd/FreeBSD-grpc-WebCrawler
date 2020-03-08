@@ -4,6 +4,8 @@ github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/dannyhinshaw/go-crawler v0.0.0-20200308122404-2d5a590f5593 h1:STsIDBDX3tJmmdmal7Dy7jbZ7Qvuro+yIY//vHbEm7s=
 github.com/dannyhinshaw/go-crawler v0.0.0-20200308122404-2d5a590f5593/go.mod h1:R41Arx2Wr0WCsJuIutAi9kdzEvc2rtxsN5oCRd8jqF8=
+github.com/dannyhinshaw/go-crawler v0.0.0-20200308130817-60593b5781c6 h1:V0LZLgO/5DJ+seh8p9XkZ8KnVIwu6pXsc8XhblkoUvI=
+github.com/dannyhinshaw/go-crawler v0.0.0-20200308130817-60593b5781c6/go.mod h1:R41Arx2Wr0WCsJuIutAi9kdzEvc2rtxsN5oCRd8jqF8=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b h1:VKtxabqXZkF25pY9ekfRL6a582T4P37/31XEstQ5p58=
