@@ -3,12 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"strings"
-
 	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
+	"log"
 )
 
 const address = "localhost:50051"
@@ -68,13 +66,10 @@ func main() {
 a count and a string.`,
 		Args: cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			for i := 0; i < echoTimes; i++ {
-				fmt.Println("Echo: " + strings.Join(args, " "))
-			}
 		},
 	}
 
-	cmdTimes.Flags().StringVar(&echoTimes, "times", "t", 1, "times to echo the input")
+	//cmdTimes.Flags().StringVar(&url, "url", "t", 1, "the url to crawl")
 
 	var rootCmd = &cobra.Command{Use: "app"}
 	rootCmd.AddCommand(cmdPrint, cmdEcho)
