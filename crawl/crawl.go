@@ -29,6 +29,7 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
+	// Create CLI
 	app := &cli.App{
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -46,11 +47,10 @@ func main() {
 			},
 		},
 		Action: func(c *cli.Context) error {
-			log.Printf("c:: %v", c)
 			if url == "" {
-				fmt.Println("You must specify a url to crawl.")
+				fmt.Println("you must specify a url to crawl.")
 			} else {
-				fmt.Println("Crawling", url)
+				fmt.Println("crawling", url)
 				r, err := client.CrawlerStart(ctx, &pb.StartRequest{Url: url})
 				if err != nil {
 					log.Fatalf("could not start crawler: %v", err)
