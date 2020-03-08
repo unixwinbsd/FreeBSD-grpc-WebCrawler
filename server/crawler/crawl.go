@@ -1,11 +1,9 @@
 package crawler
 
 import (
-	"fmt"
-	"golang.org/x/net/html"
-	"io"
+	"github.com/gocolly/colly/v2"
 	"log"
-	"net/http"
+	"net/url"
 	"strings"
 	"sync"
 )
@@ -18,75 +16,85 @@ type Crawler struct {
 }
 
 // addUrls - Concurrency safe adding urls to crawlers captured urls.
-func (c *Crawler) addUrls(urls []string) {
-	c.Lock()
-	defer c.Unlock()
-	for _, url := range urls {
-		_, exists := c.Urls[url]
-		if exists != false {
-			c.Urls[url] = struct{}{}
-		}
+func (crawler *Crawler) addUrl(url string) {
+	crawler.Lock()
+	defer crawler.Unlock()
+	_, exists := crawler.Urls[url]
+	if !exists {
+		crawler.Urls[url] = struct{}{}
 	}
 }
 
-// urlExists - Concurrency safe check if a url has already been captured.
-func (c *Crawler) urlExists(url string) bool {
-	c.Lock()
-	defer c.Unlock()
-	_, exists := c.Urls[url]
+// formatUrl - Remove trailing slash, fix partials and handle links external domain.
+func (crawler *Crawler) formatUrl(linkUrl string) string {
+	u := strings.TrimRight(linkUrl, "/")
 
-	return exists
-}
-
-// getPageLinks - Retrieves all links on a page.
-func (c *Crawler) getPageLinks(body io.Reader) []string {
-	var links []string
-	tokenizer := html.NewTokenizer(body)
-
-	for {
-		tt := tokenizer.Next()
-
-		// Receive stop signal
-		if !c.Run {
-			return links
-		}
-
-		switch tt {
-		case html.ErrorToken:
-			return links
-		case html.StartTagToken, html.EndTagToken:
-			token := tokenizer.Token()
-			if "a" != token.Data {
-				continue
-			}
-
-			// Collect a tag hrefs
-			for _, attr := range token.Attr {
-				if attr.Key != "href" {
-					continue
-				}
-				val := attr.Val
-
-				// Skip internal page links
-				if strings.HasPrefix(val, "#") {
-					continue
-				}
-
-				links = append(links, val)
-			}
-		}
+	// Fix internal links with full patch
+	if strings.HasPrefix(u, "/") {
+		return crawler.Hostname + u
 	}
+
+	// No external links
+	if !strings.Contains(u, crawler.Hostname) {
+		return ""
+	}
+
+	// Page/content links
+	if strings.HasPrefix(u, "#") {
+		return ""
+	}
+
+	return u
 }
 
 // Crawl - Starts the crawler for a given url.
-func (c *Crawler) Crawl(url string) {
-	res, err := http.Get(url)
+func (crawler *Crawler) Crawl(crawlUrl string) {
+	u, err := url.Parse(crawlUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer res.Body.Close()
 
-	c.Run = true
-	links := c.getPageLinks(res.Body)
-	fmt.Printf("links:: %v", links)
+	hostname := u.Hostname()
+	crawler.Hostname = hostname
+	log.Println("hostname::", hostname)
+
+	// Instantiate default collector
+	c := colly.NewCollector(
+		colly.AllowedDomains(hostname),
+		colly.Async(true),
+	)
+
+	// Limit the maximum parallelism to 2
+	// This is necessary if the goroutines are dynamically
+	// created to control the limit of simultaneous requests.
+	//
+	// Parallelism can be controlled also by spawning fixed
+	// number of go routines.
+	c.Limit(&colly.LimitRule{DomainGlob: "*", Parallelism: 2})
+
+	// On every a element which has href attribute call callback
+	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
+		if !crawler.Run {
+			log.Println("crawler stopped, exiting request")
+			return
+		}
+
+		link := e.Attr("href")
+		formatted := crawler.formatUrl(link)
+		if formatted != "" {
+			crawler.addUrl(formatted)
+		}
+
+		// Visit link found on page on a new thread
+		e.Request.Visit(link)
+	})
+
+	// Start scraping on url
+	c.Visit(crawlUrl)
+
+	// Wait until threads are finished
+	c.Wait()
+	for link := range crawler.Urls {
+		log.Println(link)
+	}
 }

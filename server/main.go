@@ -6,7 +6,6 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	u "net/url"
 	c "server/crawler"
 )
 
@@ -16,21 +15,15 @@ type server struct {
 	pb.UnimplementedCrawlerServer
 }
 
-var crawler c.Crawler
+var crawler = &c.Crawler{
+	Run:  true,
+	Urls: map[string]struct{}{},
+}
 
 // CrawlerStart - implements pb_crawler.StartCrawler
 func (s *server) CrawlerStart(ctx context.Context, in *pb.StartRequest) (*pb.ControlResponse, error) {
 	url := in.GetUrl()
 	log.Printf("Received: %v", url)
-
-	// Get the url hostname
-	parsedUrl, err := u.Parse(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	hostname := parsedUrl.Hostname()
-	crawler.Hostname = hostname
 
 	// Start the crawler
 	go crawler.Crawl(url)
