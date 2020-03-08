@@ -18,7 +18,7 @@ service Crawler {
 }
 
 message StartRequest {
-    repeated string url = 1;
+    string url = 1;
 }
 
 message StopRequest {
@@ -32,5 +32,5 @@ message ControlResponse {
 }
 
 message ListResponse {
-    string urls = 1;
+    repeated string urls = 1;
 }
