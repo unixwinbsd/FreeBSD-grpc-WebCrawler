@@ -1,11 +1,12 @@
-package server
+package main
 
 import (
 	"context"
 	"log"
 	"net"
+	"server/crawler"
 
-	pb "pb_crawler"
+	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
 	"google.golang.org/grpc"
 )
 
@@ -13,25 +14,39 @@ const (
 	port = ":50051"
 )
 
-// server is used to implement helloworld.GreeterServer.
 type server struct {
-	pb.UnimplementedGreeterServer
+	pb.UnimplementedCrawlerServer
 }
 
-// SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
-	log.Printf("Received: %v", in.GetName())
-	return &pb.HelloReply{Message: "Hello " + in.GetName()}, nil
+// CrawlerStart - implements pb_crawler.StartCrawler
+func (s *server) CrawlerStart(ctx context.Context, in *pb.StartRequest) (*pb.ControlResponse, error) {
+	url := in.GetUrl()
+	log.Printf("Received: %v", url)
+
+	crawler.StartCrawl(url)
+	return &pb.ControlResponse{Started: true}, nil
+}
+
+// CrawlerStop - implements pb_crawler.CrawlerStop
+func (s *server) CrawlerStop(ctx context.Context, in *pb.StopRequest) (*pb.ControlResponse, error) {
+	return &pb.ControlResponse{Started: false}, nil
+}
+
+// CrawlerList - implements pb_crawler.CrawlerList
+func (s *server) CrawlerList(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
+	return &pb.ListResponse{Urls: ""}, nil
 }
 
 func main() {
-	lis, err := net.Listen("tcp", port)
+	log.Println("starting grpc server...")
+	listener, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
 	s := grpc.NewServer()
-	pb.RegisterGreeterServer(s, &server{})
-	if err := s.Serve(lis); err != nil {
+	pb.RegisterCrawlerServer(s, &server{})
+	if err := s.Serve(listener); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
