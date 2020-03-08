@@ -1,0 +1,36 @@
+syntax = "proto3";
+package pb_crawler;
+
+// Main Web-Crawler Service
+service Crawler {
+
+    // Start the crawler with url
+    rpc CrawlerStart (StartRequest) returns (ControlResponse) {
+    }
+
+    // Stop the crawler
+    rpc CrawlerStop (StopRequest) returns (ControlResponse) {
+    }
+
+    // List the Urls tree
+    rpc ListTree (ListRequest) returns (ListResponse) {
+    }
+}
+
+message StartRequest {
+    string url = 1;
+}
+
+message StopRequest {
+}
+
+message ListRequest {
+}
+
+message ControlResponse {
+    bool started = 1;
+}
+
+message ListResponse {
+    string urls = 1;
+}
