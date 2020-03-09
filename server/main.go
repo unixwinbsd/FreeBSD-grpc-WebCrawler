@@ -37,7 +37,7 @@ func (s *server) CrawlerStop(ctx context.Context, in *pb.StopRequest) (*pb.Contr
 	return &pb.ControlResponse{Started: false}, nil
 }
 
-// CrawlerList - implements pb_crawler.CrawlerList
+// CrawlerList - implements pb_crawler.ListTree
 func (s *server) ListTree(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
 	log.Println("Getting site tree...")
 	urls := crawler.Urls

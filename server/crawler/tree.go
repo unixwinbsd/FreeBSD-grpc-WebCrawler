@@ -15,16 +15,18 @@ type Node struct {
 func AddToTree(root []Node, names []string) []Node {
 	if len(names) > 0 {
 		var i int
+		name := names[0]
 		for i = 0; i < len(root); i++ {
 
 			// already in tree
-			if root[i].Name == names[0] {
+			if root[i].Name == name {
 				break
 			}
 		}
 
 		if i == len(root) {
-			name := names[0]
+
+			// Patch empty root string
 			if name == "" {
 				name = "/"
 			}
