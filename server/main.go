@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
 	"google.golang.org/grpc"
 	"log"
@@ -17,7 +18,7 @@ type server struct {
 
 var crawler = &c.Crawler{
 	Run:  true,
-	Urls: map[string]struct{}{},
+	Urls: map[string]map[string]struct{}{},
 }
 
 // CrawlerStart - implements pb_crawler.StartCrawler
@@ -40,16 +41,28 @@ func (s *server) CrawlerStop(ctx context.Context, in *pb.StopRequest) (*pb.Contr
 // CrawlerList - implements pb_crawler.ListTree
 func (s *server) ListTree(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
 	log.Println("Getting site trees...")
-	urls := crawler.Urls
-	keys := make([]string, len(urls))
 
-	i := 0
-	for k := range urls {
-		keys[i] = k
-		i++
+	var allTrees [][]c.Node
+	urls := crawler.Urls
+	for host := range urls {
+		i := 0
+		currUrls := urls[host]
+		keys := make([]string, len(currUrls))
+		for url := range currUrls {
+			keys[i] = url
+			i++
+		}
+
+		allTrees = append(allTrees, c.BuildTree(keys))
 	}
 
-	return &pb.ListResponse{Tree: c.BuildTree(keys)}, nil
+	b, err := json.Marshal(map[string][][]c.Node{"trees": allTrees})
+	if err != nil {
+		panic(err)
+	}
+
+	treeStr := string(b)
+	return &pb.ListResponse{Tree: treeStr}, nil
 }
 
 func main() {

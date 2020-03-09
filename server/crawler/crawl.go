@@ -12,17 +12,20 @@ type Crawler struct {
 	sync.Mutex
 	Hostname string
 	Run      bool
-	Urls     map[string]struct{}
+	Urls     map[string]map[string]struct{}
 }
 
 // addUrls - Concurrency safe adding urls to crawlers captured urls.
-func (crawler *Crawler) addUrl(url string) {
+func (crawler *Crawler) addUrl(hostname string, url string) {
 	crawler.Lock()
 	defer crawler.Unlock()
-	_, exists := crawler.Urls[url]
+
+	_, exists := crawler.Urls[hostname]
 	if !exists {
-		crawler.Urls[url] = struct{}{}
+		crawler.Urls[hostname] = map[string]struct{}{}
 	}
+
+	crawler.Urls[hostname][url] = struct{}{}
 }
 
 // formatUrl - Remove trailing slash, fix partials and handle links external domain.
@@ -61,7 +64,6 @@ func (crawler *Crawler) Crawl(crawlUrl string) {
 
 	hostname := u.Hostname()
 	crawler.Hostname = hostname
-	log.Println("hostname::", hostname)
 
 	// Instantiate default collector
 	c := colly.NewCollector(
@@ -87,7 +89,7 @@ func (crawler *Crawler) Crawl(crawlUrl string) {
 		link := e.Attr("href")
 		formatted := crawler.formatUrl(link)
 		if formatted != "" {
-			crawler.addUrl(formatted)
+			crawler.addUrl(hostname, formatted)
 		}
 
 		// Visit link found on page on a new thread
@@ -99,7 +101,5 @@ func (crawler *Crawler) Crawl(crawlUrl string) {
 
 	// Wait until threads are finished
 	c.Wait()
-	for link := range crawler.Urls {
-		log.Println(link)
-	}
+	log.Println(crawlUrl, "finished crawl")
 }

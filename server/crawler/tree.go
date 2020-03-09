@@ -1,8 +1,6 @@
 package crawler
 
 import (
-	"encoding/json"
-	"fmt"
 	"strings"
 )
 
@@ -11,13 +9,12 @@ type Node struct {
 	Children []Node `json:"children"`
 }
 
-// AddToTree - Add new nodes to tree.
+// AddToTree - Add new nodes to site url tree.
 func AddToTree(root []Node, names []string) []Node {
 	if len(names) > 0 {
 		var i int
 		name := names[0]
 		for i = 0; i < len(root); i++ {
-
 			// already in tree
 			if root[i].Name == name {
 				break
@@ -25,7 +22,6 @@ func AddToTree(root []Node, names []string) []Node {
 		}
 
 		if i == len(root) {
-
 			// Patch empty root string
 			if name == "" {
 				name = "/"
@@ -40,18 +36,11 @@ func AddToTree(root []Node, names []string) []Node {
 }
 
 // BuildTree - Create a JSON tree from a list of urls.
-func BuildTree(urls []string) string {
+func BuildTree(urls []string) []Node {
 	var tree []Node
 	for i := range urls {
 		tree = AddToTree(tree, strings.Split(urls[i], "/"))
 	}
 
-	b, err := json.Marshal(tree)
-	if err != nil {
-		panic(err)
-	}
-
-	treeStr := string(b)
-	fmt.Print(treeStr)
-	return treeStr
+	return tree
 }

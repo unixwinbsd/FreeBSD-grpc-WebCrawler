@@ -78,7 +78,7 @@ func main() {
 					log.Fatalf("could not get tree: %v", err)
 				}
 
-				var tree []Node
+				var tree map[string][][]Node
 				json.Unmarshal([]byte(r.Tree), &tree)
 				j, err := json.MarshalIndent(tree, "", "  ")
 				if err != nil {
