@@ -52,7 +52,7 @@ func main() {
 			},
 			&cli.BoolFlag{
 				Name:  "list",
-				Usage: "list site tree",
+				Usage: "list site trees",
 				Value: true,
 			},
 		},

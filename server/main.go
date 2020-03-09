@@ -39,7 +39,7 @@ func (s *server) CrawlerStop(ctx context.Context, in *pb.StopRequest) (*pb.Contr
 
 // CrawlerList - implements pb_crawler.ListTree
 func (s *server) ListTree(ctx context.Context, in *pb.ListRequest) (*pb.ListResponse, error) {
-	log.Println("Getting site tree...")
+	log.Println("Getting site trees...")
 	urls := crawler.Urls
 	keys := make([]string, len(urls))
 
