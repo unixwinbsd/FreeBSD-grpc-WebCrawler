@@ -29,9 +29,14 @@ func (crawler *Crawler) addUrl(url string) {
 func (crawler *Crawler) formatUrl(linkUrl string) string {
 	u := strings.TrimRight(linkUrl, "/")
 
+	// Trim off http/s from url to normalize
+	if strings.HasPrefix(linkUrl, "http") {
+		u = strings.Split(linkUrl, "://")[1]
+	}
+
 	// Fix internal links with full patch
 	if strings.HasPrefix(u, "/") {
-		return crawler.Hostname + u
+		u = crawler.Hostname + u
 	}
 
 	// No external links

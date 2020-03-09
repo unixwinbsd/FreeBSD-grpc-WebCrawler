@@ -59,6 +59,7 @@ func main() {
 			nFlags := len(flags)
 			singleFlag := nFlags == 1
 
+			// Parsing the command with default
 			targetFlag := ""
 			if singleFlag {
 				targetFlag = flags[0]
@@ -98,8 +99,8 @@ func main() {
 				if err != nil {
 					log.Fatalf("could not start crawler: %v", err)
 				}
-				log.Printf("response: %v", r)
 
+				log.Printf("response: %v", r)
 				return nil
 			}
 
