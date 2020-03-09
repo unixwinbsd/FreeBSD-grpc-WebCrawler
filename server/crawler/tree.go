@@ -44,7 +44,7 @@ func BuildTree(urls []string) string {
 		tree = AddToTree(tree, strings.Split(urls[i], "/"))
 	}
 
-	b, err := json.MarshalIndent(tree, "", "  ")
+	b, err := json.Marshal(tree)
 	if err != nil {
 		panic(err)
 	}

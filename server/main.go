@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
 	"google.golang.org/grpc"
 	"log"
@@ -50,7 +49,7 @@ func (s *server) ListTree(ctx context.Context, in *pb.ListRequest) (*pb.ListResp
 		i++
 	}
 
-	return &pb.ListResponse{Urls: c.BuildTree(keys)}, nil
+	return &pb.ListResponse{Tree: c.BuildTree(keys)}, nil
 }
 
 func main() {

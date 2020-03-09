@@ -7,7 +7,7 @@ require (
 	github.com/antchfx/htmlquery v1.2.2 // indirect
 	github.com/antchfx/xmlquery v1.2.3 // indirect
 	github.com/antchfx/xpath v1.1.4 // indirect
-	github.com/dannyhinshaw/go-crawler v0.0.0-20200308165144-053d6d269301
+	github.com/dannyhinshaw/go-crawler v0.0.0-20200309014250-aaab6fe748bb
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gocolly/colly/v2 v2.0.1
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect

@@ -24,6 +24,8 @@ github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/dannyhinshaw/go-crawler v0.0.0-20200308165144-053d6d269301 h1:rNOrXXWpL/qB33K+cwE5zmwKkel7s61VFVZ+OGEk9/Y=
 github.com/dannyhinshaw/go-crawler v0.0.0-20200308165144-053d6d269301/go.mod h1:R41Arx2Wr0WCsJuIutAi9kdzEvc2rtxsN5oCRd8jqF8=
+github.com/dannyhinshaw/go-crawler v0.0.0-20200309014250-aaab6fe748bb h1:hG0tQGqdBEXVp9dq+s8OeD1ndSMKVasQi/r8vfuzCIQ=
+github.com/dannyhinshaw/go-crawler v0.0.0-20200309014250-aaab6fe748bb/go.mod h1:R41Arx2Wr0WCsJuIutAi9kdzEvc2rtxsN5oCRd8jqF8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

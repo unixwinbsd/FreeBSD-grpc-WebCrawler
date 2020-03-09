@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -13,6 +14,11 @@ import (
 	"github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
 )
+
+type Node struct {
+	Name     string `json:"name"`
+	Children []Node `json:"children"`
+}
 
 const address = "localhost:50051"
 
@@ -72,7 +78,16 @@ func main() {
 					log.Fatalf("could not get tree: %v", err)
 				}
 
-				log.Printf("response: %v", r)
+				var tree []Node
+				json.Unmarshal([]byte(r.Tree), &tree)
+				j, err := json.MarshalIndent(tree, "", "  ")
+				if err != nil {
+					log.Println(err)
+					return nil
+				}
+
+				// Print out the JSON tree to terminal
+				log.Printf("response: %v", string(j))
 				return nil
 			}
 
