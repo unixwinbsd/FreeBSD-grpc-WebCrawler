@@ -10,7 +10,7 @@ import (
 	"os"
 	"time"
 
-	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
+	pb "github.com/unixwinbsd/FreeBSD-grpc-WebCrawler/pb_crawler"
 	"github.com/urfave/cli/v2"
 	"google.golang.org/grpc"
 )
