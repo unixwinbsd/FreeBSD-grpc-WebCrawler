@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	pb "github.com/dannyhinshaw/go-crawler/pb_crawler"
+	pb "github.com/unixwinbsd/FreeBSD-grpc-WebCrawler/pb_crawler"
 	"google.golang.org/grpc"
 	"log"
 	"net"
