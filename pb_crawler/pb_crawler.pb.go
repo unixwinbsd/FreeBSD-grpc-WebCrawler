@@ -24,377 +24,431 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type StartRequest struct {
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+// WebCrawler simple message
+type WebCrawlerRequest struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *StartRequest) Reset()         { *m = StartRequest{} }
-func (m *StartRequest) String() string { return proto.CompactTextString(m) }
-func (*StartRequest) ProtoMessage()    {}
-func (*StartRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac1a34fb274b16d, []int{0}
+func (m *WebCrawlerRequest) Reset()         { *m = WebCrawlerRequest{} }
+func (m *WebCrawlerRequest) String() string { return proto.CompactTextString(m) }
+func (*WebCrawlerRequest) ProtoMessage()    {}
+func (*WebCrawlerRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5789a5eff0c8effc, []int{0}
 }
 
-func (m *StartRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_StartRequest.Unmarshal(m, b)
+func (m *WebCrawlerRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WebCrawlerRequest.Unmarshal(m, b)
 }
-func (m *StartRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StartRequest.Marshal(b, m, deterministic)
+func (m *WebCrawlerRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WebCrawlerRequest.Marshal(b, m, deterministic)
 }
-func (m *StartRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StartRequest.Merge(m, src)
+func (m *WebCrawlerRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WebCrawlerRequest.Merge(m, src)
 }
-func (m *StartRequest) XXX_Size() int {
-	return xxx_messageInfo_StartRequest.Size(m)
+func (m *WebCrawlerRequest) XXX_Size() int {
+	return xxx_messageInfo_WebCrawlerRequest.Size(m)
 }
-func (m *StartRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_StartRequest.DiscardUnknown(m)
+func (m *WebCrawlerRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_WebCrawlerRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StartRequest proto.InternalMessageInfo
+var xxx_messageInfo_WebCrawlerRequest proto.InternalMessageInfo
 
-func (m *StartRequest) GetUrl() string {
+func (m *WebCrawlerRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *WebCrawlerRequest) GetUrl() string {
 	if m != nil {
 		return m.Url
 	}
 	return ""
 }
 
-type StopRequest struct {
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+type WebCrawlerResponse struct {
+	Status               bool     `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Payload              []byte   `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *StopRequest) Reset()         { *m = StopRequest{} }
-func (m *StopRequest) String() string { return proto.CompactTextString(m) }
-func (*StopRequest) ProtoMessage()    {}
-func (*StopRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac1a34fb274b16d, []int{1}
+func (m *WebCrawlerResponse) Reset()         { *m = WebCrawlerResponse{} }
+func (m *WebCrawlerResponse) String() string { return proto.CompactTextString(m) }
+func (*WebCrawlerResponse) ProtoMessage()    {}
+func (*WebCrawlerResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5789a5eff0c8effc, []int{1}
 }
 
-func (m *StopRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_StopRequest.Unmarshal(m, b)
+func (m *WebCrawlerResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WebCrawlerResponse.Unmarshal(m, b)
 }
-func (m *StopRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_StopRequest.Marshal(b, m, deterministic)
+func (m *WebCrawlerResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WebCrawlerResponse.Marshal(b, m, deterministic)
 }
-func (m *StopRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_StopRequest.Merge(m, src)
+func (m *WebCrawlerResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WebCrawlerResponse.Merge(m, src)
 }
-func (m *StopRequest) XXX_Size() int {
-	return xxx_messageInfo_StopRequest.Size(m)
+func (m *WebCrawlerResponse) XXX_Size() int {
+	return xxx_messageInfo_WebCrawlerResponse.Size(m)
 }
-func (m *StopRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_StopRequest.DiscardUnknown(m)
+func (m *WebCrawlerResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WebCrawlerResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_StopRequest proto.InternalMessageInfo
+var xxx_messageInfo_WebCrawlerResponse proto.InternalMessageInfo
 
-func (m *StopRequest) GetUrl() string {
+func (m *WebCrawlerResponse) GetStatus() bool {
 	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-type ListRequest struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListRequest) Reset()         { *m = ListRequest{} }
-func (m *ListRequest) String() string { return proto.CompactTextString(m) }
-func (*ListRequest) ProtoMessage()    {}
-func (*ListRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac1a34fb274b16d, []int{2}
-}
-
-func (m *ListRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListRequest.Unmarshal(m, b)
-}
-func (m *ListRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListRequest.Marshal(b, m, deterministic)
-}
-func (m *ListRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListRequest.Merge(m, src)
-}
-func (m *ListRequest) XXX_Size() int {
-	return xxx_messageInfo_ListRequest.Size(m)
-}
-func (m *ListRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListRequest proto.InternalMessageInfo
-
-type ControlResponse struct {
-	Started              bool     `protobuf:"varint,1,opt,name=started,proto3" json:"started,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ControlResponse) Reset()         { *m = ControlResponse{} }
-func (m *ControlResponse) String() string { return proto.CompactTextString(m) }
-func (*ControlResponse) ProtoMessage()    {}
-func (*ControlResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac1a34fb274b16d, []int{3}
-}
-
-func (m *ControlResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ControlResponse.Unmarshal(m, b)
-}
-func (m *ControlResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ControlResponse.Marshal(b, m, deterministic)
-}
-func (m *ControlResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ControlResponse.Merge(m, src)
-}
-func (m *ControlResponse) XXX_Size() int {
-	return xxx_messageInfo_ControlResponse.Size(m)
-}
-func (m *ControlResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ControlResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ControlResponse proto.InternalMessageInfo
-
-func (m *ControlResponse) GetStarted() bool {
-	if m != nil {
-		return m.Started
+		return m.Status
 	}
 	return false
 }
 
-type ListResponse struct {
-	Tree                 string   `protobuf:"bytes,1,opt,name=tree,proto3" json:"tree,omitempty"`
+func (m *WebCrawlerResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *WebCrawlerResponse) GetPayload() []byte {
+	if m != nil {
+		return m.Payload
+	}
+	return nil
+}
+
+// Web Crawler batch messages
+type WebCrawlerBatchRequest struct {
+	Requests             []*WebCrawlerBatchRequest_Request `protobuf:"bytes,1,rep,name=requests,proto3" json:"requests,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                          `json:"-"`
+	XXX_unrecognized     []byte                            `json:"-"`
+	XXX_sizecache        int32                             `json:"-"`
+}
+
+func (m *WebCrawlerBatchRequest) Reset()         { *m = WebCrawlerBatchRequest{} }
+func (m *WebCrawlerBatchRequest) String() string { return proto.CompactTextString(m) }
+func (*WebCrawlerBatchRequest) ProtoMessage()    {}
+func (*WebCrawlerBatchRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5789a5eff0c8effc, []int{2}
+}
+
+func (m *WebCrawlerBatchRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WebCrawlerBatchRequest.Unmarshal(m, b)
+}
+func (m *WebCrawlerBatchRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WebCrawlerBatchRequest.Marshal(b, m, deterministic)
+}
+func (m *WebCrawlerBatchRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WebCrawlerBatchRequest.Merge(m, src)
+}
+func (m *WebCrawlerBatchRequest) XXX_Size() int {
+	return xxx_messageInfo_WebCrawlerBatchRequest.Size(m)
+}
+func (m *WebCrawlerBatchRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_WebCrawlerBatchRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WebCrawlerBatchRequest proto.InternalMessageInfo
+
+func (m *WebCrawlerBatchRequest) GetRequests() []*WebCrawlerBatchRequest_Request {
+	if m != nil {
+		return m.Requests
+	}
+	return nil
+}
+
+type WebCrawlerBatchRequest_Request struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Url                  string   `protobuf:"bytes,2,opt,name=url,proto3" json:"url,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListResponse) Reset()         { *m = ListResponse{} }
-func (m *ListResponse) String() string { return proto.CompactTextString(m) }
-func (*ListResponse) ProtoMessage()    {}
-func (*ListResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_cac1a34fb274b16d, []int{4}
+func (m *WebCrawlerBatchRequest_Request) Reset()         { *m = WebCrawlerBatchRequest_Request{} }
+func (m *WebCrawlerBatchRequest_Request) String() string { return proto.CompactTextString(m) }
+func (*WebCrawlerBatchRequest_Request) ProtoMessage()    {}
+func (*WebCrawlerBatchRequest_Request) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5789a5eff0c8effc, []int{2, 0}
 }
 
-func (m *ListResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListResponse.Unmarshal(m, b)
+func (m *WebCrawlerBatchRequest_Request) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WebCrawlerBatchRequest_Request.Unmarshal(m, b)
 }
-func (m *ListResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListResponse.Marshal(b, m, deterministic)
+func (m *WebCrawlerBatchRequest_Request) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WebCrawlerBatchRequest_Request.Marshal(b, m, deterministic)
 }
-func (m *ListResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListResponse.Merge(m, src)
+func (m *WebCrawlerBatchRequest_Request) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WebCrawlerBatchRequest_Request.Merge(m, src)
 }
-func (m *ListResponse) XXX_Size() int {
-	return xxx_messageInfo_ListResponse.Size(m)
+func (m *WebCrawlerBatchRequest_Request) XXX_Size() int {
+	return xxx_messageInfo_WebCrawlerBatchRequest_Request.Size(m)
 }
-func (m *ListResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListResponse.DiscardUnknown(m)
+func (m *WebCrawlerBatchRequest_Request) XXX_DiscardUnknown() {
+	xxx_messageInfo_WebCrawlerBatchRequest_Request.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListResponse proto.InternalMessageInfo
+var xxx_messageInfo_WebCrawlerBatchRequest_Request proto.InternalMessageInfo
 
-func (m *ListResponse) GetTree() string {
+func (m *WebCrawlerBatchRequest_Request) GetName() string {
 	if m != nil {
-		return m.Tree
+		return m.Name
 	}
 	return ""
 }
 
-func init() {
-	proto.RegisterType((*StartRequest)(nil), "pb_crawler.StartRequest")
-	proto.RegisterType((*StopRequest)(nil), "pb_crawler.StopRequest")
-	proto.RegisterType((*ListRequest)(nil), "pb_crawler.ListRequest")
-	proto.RegisterType((*ControlResponse)(nil), "pb_crawler.ControlResponse")
-	proto.RegisterType((*ListResponse)(nil), "pb_crawler.ListResponse")
+func (m *WebCrawlerBatchRequest_Request) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+type WebCrawlerBatchResponse struct {
+	Status               bool     `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Payload              []byte   `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *WebCrawlerBatchResponse) Reset()         { *m = WebCrawlerBatchResponse{} }
+func (m *WebCrawlerBatchResponse) String() string { return proto.CompactTextString(m) }
+func (*WebCrawlerBatchResponse) ProtoMessage()    {}
+func (*WebCrawlerBatchResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_5789a5eff0c8effc, []int{3}
+}
+
+func (m *WebCrawlerBatchResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_WebCrawlerBatchResponse.Unmarshal(m, b)
+}
+func (m *WebCrawlerBatchResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_WebCrawlerBatchResponse.Marshal(b, m, deterministic)
+}
+func (m *WebCrawlerBatchResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_WebCrawlerBatchResponse.Merge(m, src)
+}
+func (m *WebCrawlerBatchResponse) XXX_Size() int {
+	return xxx_messageInfo_WebCrawlerBatchResponse.Size(m)
+}
+func (m *WebCrawlerBatchResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_WebCrawlerBatchResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_WebCrawlerBatchResponse proto.InternalMessageInfo
+
+func (m *WebCrawlerBatchResponse) GetStatus() bool {
+	if m != nil {
+		return m.Status
+	}
+	return false
+}
+
+func (m *WebCrawlerBatchResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *WebCrawlerBatchResponse) GetPayload() []byte {
+	if m != nil {
+		return m.Payload
+	}
+	return nil
 }
 
 func init() {
-	proto.RegisterFile("pb_crawler.proto", fileDescriptor_cac1a34fb274b16d)
+	proto.RegisterType((*WebCrawlerRequest)(nil), "crawler.WebCrawlerRequest")
+	proto.RegisterType((*WebCrawlerResponse)(nil), "crawler.WebCrawlerResponse")
+	proto.RegisterType((*WebCrawlerBatchRequest)(nil), "crawler.WebCrawlerBatchRequest")
+	proto.RegisterType((*WebCrawlerBatchRequest_Request)(nil), "crawler.WebCrawlerBatchRequest.Request")
+	proto.RegisterType((*WebCrawlerBatchResponse)(nil), "crawler.WebCrawlerBatchResponse")
 }
 
-var fileDescriptor_cac1a34fb274b16d = []byte{
-	// 224 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x28, 0x48, 0x8a, 0x4f,
-	0x2e, 0x4a, 0x2c, 0xcf, 0x49, 0x2d, 0xd2, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x42, 0x88,
-	0x28, 0x29, 0x70, 0xf1, 0x04, 0x97, 0x24, 0x16, 0x95, 0x04, 0xa5, 0x16, 0x96, 0xa6, 0x16, 0x97,
-	0x08, 0x09, 0x70, 0x31, 0x97, 0x16, 0xe5, 0x48, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0x81, 0x98,
-	0x4a, 0xf2, 0x5c, 0xdc, 0xc1, 0x25, 0xf9, 0x05, 0xb8, 0x15, 0xf0, 0x72, 0x71, 0xfb, 0x64, 0x16,
-	0xc3, 0x4c, 0x50, 0xd2, 0xe6, 0xe2, 0x77, 0xce, 0xcf, 0x2b, 0x29, 0xca, 0xcf, 0x09, 0x4a, 0x2d,
-	0x2e, 0xc8, 0xcf, 0x2b, 0x4e, 0x15, 0x92, 0xe0, 0x62, 0x2f, 0x06, 0x59, 0x92, 0x9a, 0x02, 0xd6,
-	0xc7, 0x11, 0x04, 0xe3, 0x2a, 0x29, 0x71, 0xf1, 0x40, 0xf4, 0x42, 0x55, 0x0a, 0x71, 0xb1, 0x94,
-	0x14, 0xa5, 0xa6, 0x42, 0x8d, 0x07, 0xb3, 0x8d, 0x6e, 0x31, 0x72, 0xb1, 0x3b, 0x43, 0x9c, 0x2b,
-	0xe4, 0xce, 0xc5, 0x03, 0x65, 0x82, 0x5d, 0x2d, 0x24, 0xa1, 0x87, 0xe4, 0x3b, 0x64, 0x8f, 0x48,
-	0x49, 0x23, 0xcb, 0xa0, 0x39, 0x48, 0x89, 0x41, 0xc8, 0x95, 0x8b, 0x1b, 0x6e, 0x50, 0x7e, 0x81,
-	0x90, 0x38, 0xaa, 0x39, 0x70, 0xef, 0x12, 0x32, 0xc6, 0x9e, 0x8b, 0x03, 0xe4, 0xfe, 0x90, 0xa2,
-	0xd4, 0x54, 0x54, 0x33, 0x90, 0x42, 0x44, 0x4a, 0x02, 0x53, 0x02, 0x66, 0x40, 0x12, 0x1b, 0x38,
-	0x4a, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xe7, 0xf5, 0x2a, 0xb5, 0xa6, 0x01, 0x00, 0x00,
+func init() { proto.RegisterFile("protobuf/crawler/crawler.proto", fileDescriptor_5789a5eff0c8effc) }
+
+var fileDescriptor_5789a5eff0c8effc = []byte{
+	// 267 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2b, 0x28, 0xca, 0x2f,
+	0xc9, 0x4f, 0x2a, 0x4d, 0xd3, 0x4f, 0x2e, 0x4a, 0x2c, 0xcf, 0x49, 0x2d, 0x82, 0xd1, 0x7a, 0x60,
+	0x09, 0x21, 0x76, 0x28, 0x57, 0xc9, 0x92, 0x4b, 0x30, 0x3c, 0x35, 0xc9, 0x19, 0xc2, 0x0b, 0x4a,
+	0x2d, 0x2c, 0x4d, 0x2d, 0x2e, 0x11, 0x12, 0xe2, 0x62, 0xc9, 0x4b, 0xcc, 0x4d, 0x95, 0x60, 0x54,
+	0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x85, 0x04, 0xb8, 0x98, 0x4b, 0x8b, 0x72, 0x24, 0x98, 0xc0,
+	0x42, 0x20, 0xa6, 0x52, 0x14, 0x97, 0x10, 0xb2, 0xd6, 0xe2, 0x82, 0xfc, 0xbc, 0xe2, 0x54, 0x21,
+	0x31, 0x2e, 0xb6, 0xe2, 0x92, 0xc4, 0x92, 0xd2, 0x62, 0xb0, 0x6e, 0x8e, 0x20, 0x28, 0x0f, 0x6e,
+	0x26, 0x13, 0x92, 0x99, 0x12, 0x5c, 0xec, 0x05, 0x89, 0x95, 0x39, 0xf9, 0x89, 0x29, 0x12, 0xcc,
+	0x0a, 0x8c, 0x1a, 0x3c, 0x41, 0x30, 0xae, 0x52, 0x1f, 0x23, 0x97, 0x18, 0xc2, 0x70, 0xa7, 0xc4,
+	0x92, 0xe4, 0x0c, 0x98, 0xe3, 0x9c, 0xb9, 0x38, 0x8a, 0x20, 0x4c, 0x90, 0x15, 0xcc, 0x1a, 0xdc,
+	0x46, 0xea, 0x7a, 0x30, 0xcf, 0x61, 0xd7, 0xa2, 0x07, 0xa5, 0x83, 0xe0, 0x1a, 0xa5, 0xf4, 0xb9,
+	0xd8, 0x49, 0xf3, 0x6c, 0x3c, 0x97, 0x38, 0x86, 0xe1, 0xd4, 0xf4, 0xb1, 0xd1, 0x0e, 0x46, 0xe4,
+	0x98, 0x08, 0x4e, 0x2d, 0x2a, 0xcb, 0x4c, 0x4e, 0x15, 0x72, 0xe7, 0xe2, 0x42, 0x08, 0x0a, 0x49,
+	0x61, 0xf1, 0x28, 0xd4, 0x1b, 0x52, 0xd2, 0x58, 0xe5, 0x20, 0x4e, 0x54, 0x62, 0x10, 0x8a, 0xe2,
+	0xe2, 0x47, 0x73, 0xbf, 0x90, 0x3c, 0x81, 0x60, 0x93, 0x52, 0xc0, 0xad, 0x00, 0x66, 0xae, 0x06,
+	0xa3, 0x01, 0xa3, 0x13, 0x67, 0x14, 0x2c, 0x39, 0x25, 0xb1, 0x81, 0x93, 0x97, 0x31, 0x20, 0x00,
+	0x00, 0xff, 0xff, 0x58, 0xe0, 0x58, 0x07, 0x80, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConnInterface
+var _ grpc.ClientConn
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion4
 
-// CrawlerClient is the client API for Crawler service.
+// WebCrawlerServiceClient is the client API for WebCrawlerService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type CrawlerClient interface {
-	// Start the crawler with url
-	CrawlerStart(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*ControlResponse, error)
-	// Stop the crawler
-	CrawlerStop(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*ControlResponse, error)
-	// List the Urls tree
-	ListTree(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
+type WebCrawlerServiceClient interface {
+	// Unary
+	WebCrawler(ctx context.Context, in *WebCrawlerRequest, opts ...grpc.CallOption) (*WebCrawlerResponse, error)
+	// BiDi
+	WebCrawlerBatch(ctx context.Context, opts ...grpc.CallOption) (WebCrawlerService_WebCrawlerBatchClient, error)
 }
 
-type crawlerClient struct {
-	cc grpc.ClientConnInterface
+type webCrawlerServiceClient struct {
+	cc *grpc.ClientConn
 }
 
-func NewCrawlerClient(cc grpc.ClientConnInterface) CrawlerClient {
-	return &crawlerClient{cc}
+func NewWebCrawlerServiceClient(cc *grpc.ClientConn) WebCrawlerServiceClient {
+	return &webCrawlerServiceClient{cc}
 }
 
-func (c *crawlerClient) CrawlerStart(ctx context.Context, in *StartRequest, opts ...grpc.CallOption) (*ControlResponse, error) {
-	out := new(ControlResponse)
-	err := c.cc.Invoke(ctx, "/pb_crawler.Crawler/CrawlerStart", in, out, opts...)
+func (c *webCrawlerServiceClient) WebCrawler(ctx context.Context, in *WebCrawlerRequest, opts ...grpc.CallOption) (*WebCrawlerResponse, error) {
+	out := new(WebCrawlerResponse)
+	err := c.cc.Invoke(ctx, "/crawler.WebCrawlerService/WebCrawler", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *crawlerClient) CrawlerStop(ctx context.Context, in *StopRequest, opts ...grpc.CallOption) (*ControlResponse, error) {
-	out := new(ControlResponse)
-	err := c.cc.Invoke(ctx, "/pb_crawler.Crawler/CrawlerStop", in, out, opts...)
+func (c *webCrawlerServiceClient) WebCrawlerBatch(ctx context.Context, opts ...grpc.CallOption) (WebCrawlerService_WebCrawlerBatchClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_WebCrawlerService_serviceDesc.Streams[0], "/crawler.WebCrawlerService/WebCrawlerBatch", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &webCrawlerServiceWebCrawlerBatchClient{stream}
+	return x, nil
 }
 
-func (c *crawlerClient) ListTree(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
-	out := new(ListResponse)
-	err := c.cc.Invoke(ctx, "/pb_crawler.Crawler/ListTree", in, out, opts...)
-	if err != nil {
+type WebCrawlerService_WebCrawlerBatchClient interface {
+	Send(*WebCrawlerBatchRequest) error
+	Recv() (*WebCrawlerBatchResponse, error)
+	grpc.ClientStream
+}
+
+type webCrawlerServiceWebCrawlerBatchClient struct {
+	grpc.ClientStream
+}
+
+func (x *webCrawlerServiceWebCrawlerBatchClient) Send(m *WebCrawlerBatchRequest) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *webCrawlerServiceWebCrawlerBatchClient) Recv() (*WebCrawlerBatchResponse, error) {
+	m := new(WebCrawlerBatchResponse)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	return out, nil
+	return m, nil
 }
 
-// CrawlerServer is the server API for Crawler service.
-type CrawlerServer interface {
-	// Start the crawler with url
-	CrawlerStart(context.Context, *StartRequest) (*ControlResponse, error)
-	// Stop the crawler
-	CrawlerStop(context.Context, *StopRequest) (*ControlResponse, error)
-	// List the Urls tree
-	ListTree(context.Context, *ListRequest) (*ListResponse, error)
+// WebCrawlerServiceServer is the server API for WebCrawlerService service.
+type WebCrawlerServiceServer interface {
+	// Unary
+	WebCrawler(context.Context, *WebCrawlerRequest) (*WebCrawlerResponse, error)
+	// BiDi
+	WebCrawlerBatch(WebCrawlerService_WebCrawlerBatchServer) error
 }
 
-// UnimplementedCrawlerServer can be embedded to have forward compatible implementations.
-type UnimplementedCrawlerServer struct {
+// UnimplementedWebCrawlerServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedWebCrawlerServiceServer struct {
 }
 
-func (*UnimplementedCrawlerServer) CrawlerStart(ctx context.Context, req *StartRequest) (*ControlResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CrawlerStart not implemented")
+func (*UnimplementedWebCrawlerServiceServer) WebCrawler(ctx context.Context, req *WebCrawlerRequest) (*WebCrawlerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WebCrawler not implemented")
 }
-func (*UnimplementedCrawlerServer) CrawlerStop(ctx context.Context, req *StopRequest) (*ControlResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CrawlerStop not implemented")
-}
-func (*UnimplementedCrawlerServer) ListTree(ctx context.Context, req *ListRequest) (*ListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ListTree not implemented")
+func (*UnimplementedWebCrawlerServiceServer) WebCrawlerBatch(srv WebCrawlerService_WebCrawlerBatchServer) error {
+	return status.Errorf(codes.Unimplemented, "method WebCrawlerBatch not implemented")
 }
 
-func RegisterCrawlerServer(s *grpc.Server, srv CrawlerServer) {
-	s.RegisterService(&_Crawler_serviceDesc, srv)
+func RegisterWebCrawlerServiceServer(s *grpc.Server, srv WebCrawlerServiceServer) {
+	s.RegisterService(&_WebCrawlerService_serviceDesc, srv)
 }
 
-func _Crawler_CrawlerStart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StartRequest)
+func _WebCrawlerService_WebCrawler_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WebCrawlerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CrawlerServer).CrawlerStart(ctx, in)
+		return srv.(WebCrawlerServiceServer).WebCrawler(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb_crawler.Crawler/CrawlerStart",
+		FullMethod: "/crawler.WebCrawlerService/WebCrawler",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CrawlerServer).CrawlerStart(ctx, req.(*StartRequest))
+		return srv.(WebCrawlerServiceServer).WebCrawler(ctx, req.(*WebCrawlerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Crawler_CrawlerStop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StopRequest)
-	if err := dec(in); err != nil {
+func _WebCrawlerService_WebCrawlerBatch_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(WebCrawlerServiceServer).WebCrawlerBatch(&webCrawlerServiceWebCrawlerBatchServer{stream})
+}
+
+type WebCrawlerService_WebCrawlerBatchServer interface {
+	Send(*WebCrawlerBatchResponse) error
+	Recv() (*WebCrawlerBatchRequest, error)
+	grpc.ServerStream
+}
+
+type webCrawlerServiceWebCrawlerBatchServer struct {
+	grpc.ServerStream
+}
+
+func (x *webCrawlerServiceWebCrawlerBatchServer) Send(m *WebCrawlerBatchResponse) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *webCrawlerServiceWebCrawlerBatchServer) Recv() (*WebCrawlerBatchRequest, error) {
+	m := new(WebCrawlerBatchRequest)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(CrawlerServer).CrawlerStop(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb_crawler.Crawler/CrawlerStop",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CrawlerServer).CrawlerStop(ctx, req.(*StopRequest))
-	}
-	return interceptor(ctx, in, info, handler)
+	return m, nil
 }
 
-func _Crawler_ListTree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(CrawlerServer).ListTree(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb_crawler.Crawler/ListTree",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CrawlerServer).ListTree(ctx, req.(*ListRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _Crawler_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "pb_crawler.Crawler",
-	HandlerType: (*CrawlerServer)(nil),
+var _WebCrawlerService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "crawler.WebCrawlerService",
+	HandlerType: (*WebCrawlerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CrawlerStart",
-			Handler:    _Crawler_CrawlerStart_Handler,
-		},
-		{
-			MethodName: "CrawlerStop",
-			Handler:    _Crawler_CrawlerStop_Handler,
-		},
-		{
-			MethodName: "ListTree",
-			Handler:    _Crawler_ListTree_Handler,
+			MethodName: "WebCrawler",
+			Handler:    _WebCrawlerService_WebCrawler_Handler,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "pb_crawler.proto",
+	Streams: []grpc.StreamDesc{
+		{
+			StreamName:    "WebCrawlerBatch",
+			Handler:       _WebCrawlerService_WebCrawlerBatch_Handler,
+			ServerStreams: true,
+			ClientStreams: true,
+		},
+	},
+	Metadata: "pb_crawler/pb_crawler.proto",
 }
