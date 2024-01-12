@@ -1,9 +1,14 @@
-# go-crawler
+# FreeBSD GRPC Googlebot Crwaler
 
-### Install CLI
+### Setup GRPC Web Crawler
 
 ```bash
-cd crawl && go install
+root@ns7:~ # cd /usr/local/etc
+root@ns7:/usr/local/etc # git clone git@github.com:unixwinbsd/FreeBSD-grpc-WebCrawler.git
+
+root@ns7:/usr/local/etc # cd FreeBSD-grpc-WebCrawler
+root@ns7:/usr/local/etc/FreeBSD-grpc-WebCrawler # cd crawl
+root@ns7:/usr/local/etc/FreeBSD-grpc-WebCrawler/crawl # go build -o bin/client crawl.go
 ```
 
 ### Run
@@ -11,15 +16,12 @@ cd crawl && go install
 Start the server:
 
 ```bash
-cd server && go run main.go
+root@ns7:/usr/local/etc/FreeBSD-grpc-WebCrawler/server # cd bin
+root@ns7:/usr/local/etc/FreeBSD-grpc-WebCrawler/server/bin # ./server
+2024/01/08 10:12:04 starting gRPC server...
 ```
 
-In another terminal run the CLI with commands:
 
-```bash
-crawl -start <some-url> # start crawling a url
-crawl -stop <some-url>  # stop crawling a url
-crawl -list             # view site tree for all crawled urls
-```
-# FreeBSD-grpc-WebCrawler
-# FreeBSD-grpc-WebCrawler
+# Reference, Please visit:
+https://www.unixwinbsd.site
+https://www.unixwinbsd.site/2024/01/setup-grpc-google-web-crawling-with.html
